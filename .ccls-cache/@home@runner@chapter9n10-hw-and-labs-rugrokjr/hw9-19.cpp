@@ -6,57 +6,61 @@
 #include <iomanip>
 using namespace std;
 // Function prototype
-double getPayment(int, double, int);
+double getPayment(int,double,int);
+
+
+using namespace std;
+
 int main()
 {
-    // Declare variables
-    int carPrice = 0;
-    int rebate = 0;
-    double creditRate = 0.0;
-    double dealerRate = 0.0;
-    int term = 0;
-    double creditPayment = 0.0;
-    double dealerPayment = 0.0;
-    char another = 'Y';
-    while (toupper(another) == 'Y')
-    {
-        cout << "Enter the car price after any trade-in value: ";
-        cin >> carPrice;
-        cout << "Rebate: ";
-        cin >> rebate;
-        cout << "Credit union rate (as a percentage): ";
-        cin >> creditRate;
-        cout << "Dealer rate (as a percentage): ";
-        cin >> dealerRate;
-        cout << "Term in years: ";
-        cin >> term;
-        // Ensure rates are in decimal form
-        if (creditRate >= 1)
-            creditRate /= 100;
-        if (dealerRate >= 1)
-            dealerRate /= 100;
-        // Call function to calculate payments
-        creditPayment = getPayment(carPrice - rebate, creditRate / 12, term * 12);
-        dealerPayment = getPayment(carPrice, dealerRate / 12, term * 12);
-        // Display payments
-        cout << fixed << setprecision(2) << endl;
-        cout << "Credit union payment: $" << creditPayment << endl;
-        cout << "Dealer payment: $" << dealerPayment << endl;
-        if (creditPayment < dealerPayment)
-            cout << "You should finance through the credit union.";
-        else if (creditPayment > dealerPayment)
-            cout << "You should finance through the dealer.";
-        else
-            cout << "You can finance through either.";
-        cout << endl;
-        cout << "Another (Y/N)? ";
-        cin >> another;
-    } // End while
-    return 0;
-} // End of main function
-// Function to calculate and return a monthly payment
-double getPayment(int prin, double monthRate, int months)
+int carPrice=0;
+int rebate=0;
+double creditRate=0.0;
+double dealerRate=0.0;
+int term=0;
+double creditPayment=0.0;
+double dealerPayment=0.0;
+int months=0;
+
+cout<<"Car price (after any trade-in):";
+cin>>carPrice;
+cout<<"Rebate";
+cin>>rebate;
+cout<<"Credit Union Rate: ";
+cin>>creditRate;
+cout<<"Daeler Rate:";
+cin>>dealerRate;
+cout<<"Term in months:";
+cin>>term;
+cout<<"enter months for terms:";
+cin>>months;
+
+if(months==0)
 {
-    double monthPay = prin * monthRate / (1 - pow(monthRate + 1, -months));
-    return monthPay;
-} // End of getPayment function
+
+return -1;
+
+}
+
+else
+{
+creditPayment=getPayment((carPrice-rebate),creditRate/months,term*months);
+dealerPayment=getPayment(carPrice,dealerRate/months,term*months);
+
+
+cout<<fixed<<setprecision(2)<<endl;
+cout<<"Credit union payment:$" <<creditPayment<<endl;
+
+cout<<"Dealer payment:$" <<dealerPayment<<endl;
+}
+
+return 0;
+}
+
+
+double getPayment(int price ,double creditrate,int term)
+
+{
+return price+creditrate+term;
+
+}
